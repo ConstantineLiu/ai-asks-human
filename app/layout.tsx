@@ -6,17 +6,26 @@
  */
 
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Outfit, Noto_Sans_SC } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({
+const outfit = Outfit({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-display',
+  display: 'swap',
+});
+
+const notoSansSC = Noto_Sans_SC({
+  subsets: ['latin'],
+  variable: '--font-body',
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: 'AI Asks Human',
-  description: 'AI 通过提问帮助你思考',
+  title: 'AI Asks Human | 思维空间',
+  description: '角色反转 — AI 通过提问帮助你深度思考',
+  keywords: ['AI', '思考', '提问', '职业发展', '决策', '学习'],
 };
 
 export default function RootLayout({
@@ -25,8 +34,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="zh-CN">
-      <body className={`${inter.variable} font-sans antialiased`}>
+    <html lang="zh-CN" className="dark">
+      <body className={`${outfit.variable} ${notoSansSC.variable} antialiased`}>
         {children}
       </body>
     </html>
