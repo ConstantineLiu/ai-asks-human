@@ -6,7 +6,7 @@
  */
 
 import type { Metadata } from 'next';
-import { Outfit, Noto_Sans_SC } from 'next/font/google';
+import { Outfit, Noto_Sans_SC, EB_Garamond, Cinzel_Decorative } from 'next/font/google';
 import './globals.css';
 
 const outfit = Outfit({
@@ -19,6 +19,20 @@ const notoSansSC = Noto_Sans_SC({
   subsets: ['latin'],
   variable: '--font-body',
   weight: ['400', '500', '600', '700'],
+  display: 'swap',
+});
+
+const ebGaramond = EB_Garamond({
+  subsets: ['latin'],
+  variable: '--font-serif',
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+});
+
+const cinzelDecorative = Cinzel_Decorative({
+  subsets: ['latin'],
+  variable: '--font-cinzel',
+  weight: ['400', '700', '900'],
   display: 'swap',
 });
 
@@ -35,7 +49,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh-CN" className="dark">
-      <body className={`${outfit.variable} ${notoSansSC.variable} antialiased`}>
+      <body className={`${outfit.variable} ${notoSansSC.variable} ${ebGaramond.variable} ${cinzelDecorative.variable} antialiased`}>
         {children}
       </body>
     </html>

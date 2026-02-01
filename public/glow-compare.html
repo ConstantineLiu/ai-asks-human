@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gold Particle Glow Comparison</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0a0a0a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #f5f0e6;
+    }
+
+    h1 {
+      margin-bottom: 40px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+    }
+
+    .container {
+      display: flex;
+      gap: 80px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .demo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .label {
+      font-size: 18px;
+      color: #a89f8a;
+      letter-spacing: 0.05em;
+    }
+
+    .particle-box {
+      width: 200px;
+      height: 300px;
+      background: #0a0a0a;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(240, 215, 122, 0.9);
+      animation: rise 5s ease-out infinite;
+    }
+
+    /* ========== 三层光晕：8px 内核 ========== */
+    .three-layer .particle {
+      width: 8px;
+      height: 8px;
+      box-shadow:
+        0 0 10px rgba(240, 215, 122, 1),
+        0 0 25px rgba(240, 215, 122, 0.9),
+        0 0 45px rgba(212, 175, 55, 0.7);
+    }
+
+    /* ========== 四层光晕：7px 内核 ========== */
+    .four-layer .particle {
+      width: 7px;
+      height: 7px;
+      box-shadow:
+        0 0 8px rgba(240, 215, 122, 1),
+        0 0 20px rgba(240, 215, 122, 0.9),
+        0 0 38px rgba(212, 175, 55, 0.8),
+        0 0 60px rgba(212, 175, 55, 0.5);
+    }
+
+    /* ========== 五层光晕：6px 内核 ========== */
+    .five-layer .particle {
+      width: 6px;
+      height: 6px;
+      box-shadow:
+        0 0 6px rgba(240, 215, 122, 1),
+        0 0 15px rgba(240, 215, 122, 0.95),
+        0 0 30px rgba(240, 215, 122, 0.8),
+        0 0 50px rgba(212, 175, 55, 0.6),
+        0 0 75px rgba(212, 175, 55, 0.4);
+    }
+
+    /* 粒子位置 */
+    .particle:nth-child(1) { left: 20%; animation-delay: 0s; }
+    .particle:nth-child(2) { left: 50%; animation-delay: 0.8s; }
+    .particle:nth-child(3) { left: 80%; animation-delay: 1.6s; }
+    .particle:nth-child(4) { left: 35%; animation-delay: 2.4s; }
+    .particle:nth-child(5) { left: 65%; animation-delay: 3.2s; }
+
+    @keyframes rise {
+      0% {
+        bottom: -20px;
+        opacity: 0;
+        transform: translateX(0) scale(0.5);
+      }
+      10% {
+        opacity: 0.9;
+        transform: scale(1);
+      }
+      30% {
+        transform: translateX(15px) scale(1.1);
+      }
+      50% {
+        transform: translateX(-12px) scale(0.9);
+      }
+      70% {
+        transform: translateX(10px) scale(1);
+      }
+      90% {
+        opacity: 0.9;
+      }
+      100% {
+        bottom: 110%;
+        opacity: 0;
+        transform: translateX(-8px) scale(0.6);
+      }
+    }
+
+    /* 静态对比 */
+    .static-compare {
+      margin-top: 60px;
+      display: flex;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .static-particle {
+      border-radius: 50%;
+      background: rgba(240, 215, 122, 0.9);
+    }
+
+    /* 三层：8px 内核 */
+    .static-particle.three {
+      width: 8px;
+      height: 8px;
+      box-shadow:
+        0 0 10px rgba(240, 215, 122, 1),
+        0 0 25px rgba(240, 215, 122, 0.9),
+        0 0 45px rgba(212, 175, 55, 0.7);
+    }
+
+    /* 四层：7px 内核 */
+    .static-particle.four {
+      width: 7px;
+      height: 7px;
+      box-shadow:
+        0 0 8px rgba(240, 215, 122, 1),
+        0 0 20px rgba(240, 215, 122, 0.9),
+        0 0 38px rgba(212, 175, 55, 0.8),
+        0 0 60px rgba(212, 175, 55, 0.5);
+    }
+
+    /* 五层：6px 内核 */
+    .static-particle.five {
+      width: 6px;
+      height: 6px;
+      box-shadow:
+        0 0 6px rgba(240, 215, 122, 1),
+        0 0 15px rgba(240, 215, 122, 0.95),
+        0 0 30px rgba(240, 215, 122, 0.8),
+        0 0 50px rgba(212, 175, 55, 0.6),
+        0 0 75px rgba(212, 175, 55, 0.4);
+    }
+
+    .static-demo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    h2 {
+      margin-top: 60px;
+      margin-bottom: 30px;
+      font-weight: 400;
+      color: #a89f8a;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gold Particle Glow Comparison</h1>
+
+  <div class="container">
+    <!-- 三层光晕 -->
+    <div class="demo">
+      <div class="label">3 Layers</div>
+      <div class="particle-box three-layer">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+      </div>
+    </div>
+
+    <!-- 四层光晕 -->
+    <div class="demo">
+      <div class="label">4 Layers</div>
+      <div class="particle-box four-layer">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+      </div>
+    </div>
+
+    <!-- 五层光晕 -->
+    <div class="demo">
+      <div class="label">5 Layers</div>
+      <div class="particle-box five-layer">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Static Comparison</h2>
+
+  <div class="static-compare">
+    <div class="static-demo">
+      <div class="static-particle three"></div>
+      <div class="label">3 Layers</div>
+    </div>
+    <div class="static-demo">
+      <div class="static-particle four"></div>
+      <div class="label">4 Layers</div>
+    </div>
+    <div class="static-demo">
+      <div class="static-particle five"></div>
+      <div class="label">5 Layers</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -444,3 +444,602 @@ body {
     box-shadow: 0 0 40px var(--accent-glow), 0 0 60px var(--accent-secondary-glow);
   }
 }
+
+/* ================================================================
+   QUESTION PANEL - AskUserQuestion UI
+   ================================================================ */
+.question-panel {
+  background: rgba(26, 26, 36, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  animation: slide-up 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.question-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.question-panel-title {
+  font-weight: 600;
+  color: var(--accent);
+  font-size: 14px;
+}
+
+.question-panel-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ========== Question Tabs ========== */
+.question-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.question-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.question-tab {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.question-tab:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.question-tab.active {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.question-tab.answered {
+  background: var(--accent-secondary-glow);
+  border-color: var(--accent-secondary);
+}
+
+.question-tab.answered::after {
+  content: ' ✓';
+  color: var(--accent-secondary);
+}
+
+.submit-tab {
+  margin-left: auto;
+  background: linear-gradient(135deg, var(--accent) 0%, #4ade80 100%);
+  color: var(--void);
+  border: none;
+}
+
+.submit-tab:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.submit-tab:not(:disabled):hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(110, 231, 183, 0.3);
+}
+
+/* ========== Question Content ========== */
+.question-content {
+  padding: 20px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.question-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+/* ========== Options List ========== */
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.option-item:hover {
+  border-color: var(--border-hover);
+  background: var(--surface-hover);
+}
+
+.option-item.focused {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-glow);
+}
+
+.option-item.selected {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+
+.option-item input[type="radio"],
+.option-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.option-content {
+  flex: 1;
+}
+
+.option-label {
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.option-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ========== Other Input ========== */
+.other-input {
+  display: none;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--void-light);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.other-input.visible {
+  display: block;
+}
+
+.other-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-glow);
+}
+
+.other-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* ========== Keyboard Hint ========== */
+.keyboard-hint {
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.keyboard-hint kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-family: inherit;
+  font-size: 11px;
+  margin: 0 2px;
+}
+
+/* ================================================================
+   LANDING PAGE - Socratic Maieutics
+   ================================================================ */
+.landing-page {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* ========== Gold Streaks Effect ========== */
+/* 效果1: 直线闪电 - 全屏分布 */
+.gold-streaks {
+  position: absolute;
+  inset: 0;
+  z-index: 2; /* 闪电层：黑色背景(1) < 闪电(2) < 图片(3) */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* 效果5: 上升粒子 */
+.gold-particle {
+  position: absolute;
+  bottom: -20px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(240, 215, 122, 0.9);
+  /* 三层光晕（原版） */
+  box-shadow:
+    0 0 6px rgba(240, 215, 122, 1),
+    0 0 12px rgba(212, 175, 55, 0.8),
+    0 0 18px rgba(212, 175, 55, 0.4);
+  /* 四层光晕
+  box-shadow:
+    0 0 4px rgba(240, 215, 122, 1),
+    0 0 10px rgba(240, 215, 122, 0.85),
+    0 0 18px rgba(212, 175, 55, 0.6),
+    0 0 28px rgba(212, 175, 55, 0.3);
+  */
+  /* 五层光晕
+  box-shadow:
+    0 0 3px rgba(240, 215, 122, 1),
+    0 0 8px rgba(240, 215, 122, 0.9),
+    0 0 15px rgba(212, 175, 55, 0.7),
+    0 0 24px rgba(212, 175, 55, 0.45),
+    0 0 35px rgba(212, 175, 55, 0.2);
+  */
+  animation: particle-rise 5s ease-out infinite;
+}
+
+/* 粒子位置和动画时长由 JS 动态设置 */
+
+/* 原版摇摆幅度
+@keyframes particle-rise {
+  0%   { bottom: -20px; opacity: 0; transform: translateX(0) scale(0.5); }
+  10%  { opacity: 0.9; transform: scale(1); }
+  30%  { transform: translateX(25px) scale(1.1); }
+  50%  { transform: translateX(-20px) scale(0.9); }
+  70%  { transform: translateX(15px) scale(1); }
+  90%  { opacity: 0.9; }
+  100% { bottom: 110%; opacity: 0; transform: translateX(-10px) scale(0.6); }
+}
+*/
+
+/* 摇摆幅度 +15% */
+@keyframes particle-rise {
+  0% {
+    bottom: -20px;
+    opacity: 0;
+    transform: translateX(0) scale(0.5);
+  }
+  10% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  30% {
+    transform: translateX(29px) scale(1.1);
+  }
+  50% {
+    transform: translateX(-23px) scale(0.9);
+  }
+  70% {
+    transform: translateX(17px) scale(1);
+  }
+  90% {
+    opacity: 0.9;
+  }
+  100% {
+    bottom: 110%;
+    opacity: 0;
+    transform: translateX(-12px) scale(0.6);
+  }
+}
+
+/* ========== 效果2: 弯曲波浪线 ========== */
+/*
+.gold-streaks.style-wave .gold-streak {
+  width: 3px;
+  height: 200px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(212, 175, 55, 0.6),
+    rgba(240, 215, 122, 0.9),
+    rgba(212, 175, 55, 0.6),
+    transparent
+  );
+  border-radius: 50%;
+  animation: streak-wave 4s ease-in-out infinite;
+}
+
+@keyframes streak-wave {
+  0% {
+    top: -200px;
+    opacity: 0;
+    transform: translateX(0) rotate(0deg);
+  }
+  5% {
+    opacity: 0.7;
+  }
+  25% {
+    transform: translateX(30px) rotate(5deg);
+  }
+  50% {
+    transform: translateX(-30px) rotate(-5deg);
+  }
+  75% {
+    transform: translateX(30px) rotate(5deg);
+  }
+  95% {
+    opacity: 0.7;
+  }
+  100% {
+    top: 110%;
+    opacity: 0;
+    transform: translateX(0) rotate(0deg);
+  }
+}
+*/
+
+/* ========== 效果3: 闪烁星点 ========== */
+/*
+.gold-streaks.style-sparkle .gold-streak {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 215, 122, 1) 0%, rgba(212, 175, 55, 0.8) 50%, transparent 100%);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.8), 0 0 20px rgba(212, 175, 55, 0.4);
+  animation: streak-sparkle 2s ease-in-out infinite;
+}
+
+@keyframes streak-sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+*/
+
+/* ========== 效果4: 对角线流光 ========== */
+/*
+.gold-streaks.style-diagonal .gold-streak {
+  width: 1px;
+  height: 300px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(212, 175, 55, 0.3),
+    rgba(240, 215, 122, 0.8),
+    rgba(212, 175, 55, 0.3),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: streak-diagonal 5s linear infinite;
+}
+
+@keyframes streak-diagonal {
+  0% {
+    top: -300px;
+    left: -100px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    top: 100%;
+    left: 100%;
+    opacity: 0;
+  }
+}
+*/
+
+/* ========== 效果5: 上升的金色粒子 ========== */
+/*
+.gold-streaks.style-particles .gold-streak {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(240, 215, 122, 0.9);
+  box-shadow: 0 0 6px rgba(212, 175, 55, 1), 0 0 12px rgba(212, 175, 55, 0.5);
+  animation: streak-rise 6s ease-out infinite;
+}
+
+@keyframes streak-rise {
+  0% {
+    bottom: -10px;
+    opacity: 0;
+    transform: translateX(0);
+  }
+  10% {
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateX(20px);
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    bottom: 110%;
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+}
+*/
+
+/* ========== Background Painting ========== */
+.landing-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent; /* 背景透明，让闪电透过 */
+  z-index: 3; /* 图片在最上层 */
+}
+
+.landing-painting {
+  height: 100vh;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0.9) contrast(1.05);
+  opacity: 0;
+  animation: painting-reveal 3s linear 0.3s forwards;
+}
+
+@keyframes painting-reveal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* ========== Title Overlay ========== */
+.landing-content {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* ========== 配色方案 ==========
+   方案1: 深-中-浅 (当前启用)
+   方案2: 互换第一二行
+   方案3: 全部中间色
+   ============================== */
+
+.landing-title {
+  position: absolute;
+  inset: 0;
+  font-family: var(--font-cinzel), 'Cinzel Decorative', serif;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 40px rgba(0, 0, 0, 0.9),
+    0 0 80px rgba(0, 0, 0, 0.8),
+    0 4px 20px rgba(0, 0, 0, 0.7);
+
+  /* 方案1: 深-中-浅 */
+  /* color: #a89070; */
+
+  /* 方案2: 互换 */
+  /* color: #c9b896; */
+
+  /* 方案3: 全部中间色 */
+  /* color: #c9b896; */
+
+  /* 原始配色 */
+  color: #f0e6d3;
+}
+
+.landing-title-line {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  opacity: 0;
+  animation: title-reveal 1s ease-out forwards;
+}
+
+.landing-title-line:first-child {
+  top: 33%;
+  font-size: clamp(2.5rem, 8vw, 10rem);
+  animation-delay: 3.5s;
+}
+
+.landing-title-line:last-child {
+  top: 58%;
+  font-size: clamp(1.7rem, 5vw, 6rem);
+  animation-delay: 5.1s;
+
+  /* 原始配色 */
+  color: #c9b896;
+}
+
+@keyframes title-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* ========== Enter Hint ========== */
+.landing-hint {
+  position: absolute;
+  top: 87%;
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-serif), 'EB Garamond', serif;
+  font-size: clamp(0.9rem, 1.2vw, 3rem);
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  opacity: 0;
+  animation: hint-reveal 1s ease-out 6.7s forwards;
+
+  /* 原始配色 */
+  color: #c9b896;
+}
+
+@keyframes hint-reveal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
